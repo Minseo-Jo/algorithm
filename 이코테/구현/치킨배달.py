@@ -1,5 +1,5 @@
+# 내가 푼 답안
 import itertools
-
 
 # 치킨집 좌표 구하기
 def find_chicken(graph):
@@ -54,3 +54,43 @@ for i in range (len(chicken_comb)):
     total_lst.append(total_dist)
 
 print(min(total_lst))
+
+
+
+
+# 문제 해설 정답
+from itertools import combinations
+
+n, m = map(int,input().split())
+chicken, house = [],[]
+
+
+# 좌표를 입력받으면서 바로 위치 저장
+for x in range(n):
+    data = list(map(int,input().split()))
+    for y in range(n):
+        if data[y] == 1 :
+            house.append((x,y))
+        elif data[y] == 2:
+            chicken.append((x,y))
+
+# 모든 치킨집에서 m개의 치킨집 조합 뽑기
+candidates = list(combinations(chicken,m))
+
+#각 조합안에서 치킨 거리의 최소 구하기
+def get_sum(candidate) :
+    result = 0
+    for hx, hy in house :
+        temp = 1e9
+        for cx, cy in candidate:
+            temp = min(temp, abs(hx-cx) + abs(hy-cy))
+        result += temp
+    return result
+
+
+# 조합 중 치킨 거리의 합 최소를 찾아 출력
+result = 1e9
+for candidate in candidates :
+    result = min(result, get_sum(candidate))
+
+print(result)
