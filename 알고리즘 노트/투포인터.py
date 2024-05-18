@@ -53,3 +53,23 @@ while i < n or j < m :
     k += 1
 
 print(*result)
+
+
+"""슬라이딩 윈도우
+ 1. 멘 처음 범위의 수열의 합을 구한다.
+ 2. 맨 앞에 있는 리스트 값은 빼주고, 그 다음 리스트 값은 더해준다.
+ => 계산의 중복 없이 값을 구할 수 있음 
+ """
+numbers = [1,3,2,6,-1,4,1,8,2]
+n = len(numbers)
+k = 5
+
+window = sum(numbers[:k])
+answer = window
+
+for i in range (5, n) :
+    window += numbers[i] - numbers[i-k]
+    answer = max(answer, window)
+
+print(answer)
+
